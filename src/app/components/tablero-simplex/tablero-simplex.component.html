@@ -1,23 +1,39 @@
-<table aria-describedby="simplex table">
-    <thead>
-        <tr>
-            <th></th>
-            <th>Cj</th>
-            <th *ngFor="let cj of Cj">{{cj}}</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Cb</td>
-            <td>Xb</td>
-            <td *ngFor="let col of columns2">{{col}}</td>
-            <td>b</td>
-        </tr>
-        <tr>
-            <td>{{Cb2[0]}}</td>
-            <td>S1</td>
-            <td>S2</td>
-            <td>S1</td>
-        </tr>
-    </tbody>
-</table>
+<div *ngIf="showBoard" class="w-full text-center">
+    <table aria-describedby="simplex table" class="table-auto text-center" *ngFor="let el of Cb_cache; index as k">
+        <thead>
+            <tr class="font-normal">
+                <th class="no-border"></th>
+                <th class="font-normal w-14">Cj</th>
+                <th class="font-normal w-14" *ngFor="let cj of Cj">{{cj}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="font-bold">
+                <td class="w-14">Cb</td>
+                <td>Xb</td>
+                <td *ngFor="let col of columns">{{col}}</td>
+                <td class="w-14">b</td>
+                <td class="w-14">Razón</td>
+            </tr>
+            <tr *ngFor="let i of boardSize; index as indI">
+                <td>{{Cb_cache[k][indI]}}</td>
+                <td>{{Xb_cache[k][indI]}}</td>
+                <td *ngFor="let j of R_cache[k][indI]; index as indJ">{{R_cache[k][indI][indJ] | number:
+                    '1.0-3'}}</td>
+                <td>{{b_cache[k][indI]}}</td>
+                <td>{{ratio_cache[k][indI]}}</td>
+            </tr>
+            <tr>
+                <td class="no-border"></td>
+                <td>Zj</td>
+                <td *ngFor="let el of Zj_cache[k]">{{el | number: '1.0-2'}}</td>
+                <td>{{zValue_cache[k]}}</td>
+            </tr>
+            <tr>
+                <td class="no-border"></td>
+                <td>Zj-Cj</td>
+                <td *ngFor="let el of Zj_Cj_cache[k]">{{el | number: '1.0-2'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

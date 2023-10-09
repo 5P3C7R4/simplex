@@ -8,13 +8,16 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Simplex';
 
-  public X!: Array<number>;
+  public Cj!: Array<number>;
   public R!: Array<Array<number>>
   public sign!: Array<string>
   public b!: Array<number>;
+  public sense: string = "";
 
-  public addX(x: Array<number>) {
-    this.X = x
+  public showBoard = false
+
+  public addX(cj: Array<number>) {
+    this.Cj = cj
   }
 
   public addR(r: Array<Array<number>>) {
@@ -29,7 +32,11 @@ export class AppComponent {
     this.b = b
   }
 
-  public prueba() {
-    console.log(this.X)
+  public addSense(sense: string) {
+    this.sense = sense;
+  }
+
+  public showTable() {
+    this.showBoard = true;
   }
 }

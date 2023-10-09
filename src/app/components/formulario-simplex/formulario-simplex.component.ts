@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms'
 import { Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-formulario-simplex',
@@ -13,21 +14,11 @@ export class FormularioSimplexComponent implements OnInit {
   public zVars: number = 1;
   public zVarsCache: number = 1;
   public restrictNum: number = 1;
-  public sense: number = 0;
+  public sense: string = "Min";
   public Xghost = new Array(9)
-  public X: Array<number | null> = [null, null, null, null, null, null, null, null, null]
+  public Cj: Array<number | null> = new Array(9).fill(null)
   public Rghost = [new Array(1), [], [], [], [], [], [], [], []]
-  public R: Array<Array<number | null>> = [
-    [null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null, null, null],
-  ];
+  public R: Array<Array<number | null>> = new Array(9).fill(0).map(e => new Array(9).fill(null))
   public signs: string[] = ["<=", "<=", "<=", "<=", "<=", "<=", "<=", "<=", "<=",];
   public b: number[] = new Array<number>(9);
 
@@ -35,6 +26,10 @@ export class FormularioSimplexComponent implements OnInit {
   @Output() public rEmitter: EventEmitter<Array<Array<number>>> = new EventEmitter();
   @Output() public signEmitter: EventEmitter<Array<string>> = new EventEmitter();
   @Output() public bEmitter: EventEmitter<Array<number>> = new EventEmitter();
+  @Output() public senseEmitter: EventEmitter<string> = new EventEmitter();
+  @Output() public ready: EventEmitter<boolean> = new EventEmitter();
+
+  constructor(private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.changesOnZVars().subscribe({
@@ -49,31 +44,46 @@ export class FormularioSimplexComponent implements OnInit {
 
   solve() {
     let R_clean: number[][] = []
+    let Cj_clean: number[] = []
 
-    let X_clean: number[] = []
-    this.X.slice(0, this.zVars).forEach(x => {
+    this.Cj.slice(0, this.zVars).forEach(x => {
       if (x === null) {
-        X_clean.push(0)
+        Cj_clean.push(0)
       } else
-        X_clean.push(x)
+        Cj_clean.push(x)
     })
 
-    this.R.slice(0, this.restrictNum).forEach(r => {
+    let R_copy: number[][] = new Array(this.R.length).fill(null).map(cell => new Array(this.R[0].length))
+    this.R.forEach((row, i) => row.map((el, j) => {
+      if (el == null)
+        R_copy[i][j] = 0
+      else
+        R_copy[i][j] = el
+    }))
+
+    R_copy.slice(0, this.restrictNum).forEach(r => {
       let arrayR: number[] = []
-      r.splice(0, this.zVars).forEach(el => {
-        if (el === null) {
-          arrayR.push(0)
-        } else {
+      r.splice(0, this.zVars).forEach((el) => {
           arrayR.push(el)
-        }
       })
       R_clean.push(arrayR)
     })
 
-    this.xEmitter.emit(X_clean)
+    let b_copy = new Array(this.b.length).fill(null)
+    this.b.forEach((e, i) => {
+      b_copy[i] = e
+    })
+    let sense_copy = new Array(this.signs.length)
+    this.signs.forEach((e, i) => {
+      sense_copy[i] = e
+    })
+
+    this.xEmitter.emit(Cj_clean)
     this.rEmitter.emit(R_clean)
-    this.signEmitter.emit(this.signs.splice(0, this.restrictNum))
-    this.bEmitter.emit(this.b.splice(0, this.restrictNum))
+    this.signEmitter.emit(sense_copy.splice(0, this.restrictNum))
+    this.bEmitter.emit(b_copy.splice(0, this.restrictNum))
+    this.senseEmitter.emit(this.sense);
+    this.ready.emit(true);
   }
 
   changesOnZVars() {

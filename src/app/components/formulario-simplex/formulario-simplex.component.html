@@ -15,13 +15,13 @@
             </select>
             <div class="w-full mt-5 flex flex-wrap">
                 <select class="form-select mr-4" [(ngModel)]="sense" name="sense">
-                    <option selected value="1">Min</option>
-                    <option value="2">Max</option>
+                    <option selected value="Min">Min</option>
+                    <option value="Max">Max</option>
                 </select>
                 Z = &nbsp;
                 <div *ngFor="let i of Xghost; index as ind" class="flex">
                     <div *ngIf="ind < zVars" class="flex">
-                        <input type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="X[ind]"
+                        <input type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="Cj[ind]"
                             class="min-w-10 w-auto max-w-[3rem] border-2">
                         &nbsp;
                         X{{ind+1}}
@@ -52,7 +52,6 @@
             </div>
         </div>
 
-
         <div class="w-full mt-5 flex flex-col flex-wrap">
             <div *ngFor="let i of Rghost; index as indI" class="flex flex-wrap">
                 <div *ngFor="let j of Rghost[0]; index as indJ">
@@ -64,14 +63,16 @@
                         &nbsp;
                         <span *ngIf="indJ < Rghost[0].length-1">+</span>
                         &nbsp;
-                        <select [(ngModel)]="signs[indI]" [ngModelOptions]="{standalone: true}">
-                            <option value="<=" selected>&le;</option>
-                            <option value=">=">&ge;</option>
-                            <option value="=">&equals;</option>
-                        </select>
-                        <input type="number" [(ngModel)]="b[indI]" [ngModelOptions]="{standalone: true}"
-                            class="min-w-10 w-auto max-w-[3rem] border-2">
                     </div>
+                </div>
+                <div *ngIf="indI < restrictNum">
+                    <select [(ngModel)]="signs[indI]" [ngModelOptions]="{standalone: true}">
+                        <option value="<=" selected>&le;</option>
+                        <option value=">=">&ge;</option>
+                        <option value="=">&equals;</option>
+                    </select>
+                    <input type="number" [(ngModel)]="b[indI]" [ngModelOptions]="{standalone: true}"
+                        class="min-w-10 w-auto max-w-[3rem] border-2">
                 </div>
             </div>
         </div>
