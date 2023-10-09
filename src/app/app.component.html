@@ -1,0 +1,3 @@
+<app-formulario-simplex (xEmitter)="addX($event)" (rEmitter)="addR($event)" (signEmitter)="addSign($event)"
+    (bEmitter)="addB($event)"></app-formulario-simplex>
+<app-tablero-simplex *ngIf="true" [Cj]="X" [R]="R" [sign]="sign" [b]="b"></app-tablero-simplex>

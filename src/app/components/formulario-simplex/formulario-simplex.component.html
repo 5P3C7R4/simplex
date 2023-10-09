@@ -1,0 +1,84 @@
+<div class="w-full">
+    <form class="p-5 xl:w-[60%] w-[80%] mx-auto flex flex-wrap justify-start">
+        <div class="my-5 w-full">
+            <span class="mx-1">¿Cuántas variables tiene la función objetivo?</span>
+            <select class="form-select mr-4" [(ngModel)]="zVars" name="zVars">
+                <option selected value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+            </select>
+            <div class="w-full mt-5 flex flex-wrap">
+                <select class="form-select mr-4" [(ngModel)]="sense" name="sense">
+                    <option selected value="1">Min</option>
+                    <option value="2">Max</option>
+                </select>
+                Z = &nbsp;
+                <div *ngFor="let i of Xghost; index as ind" class="flex">
+                    <div *ngIf="ind < zVars" class="flex">
+                        <input type="number" [ngModelOptions]="{standalone: true}" [(ngModel)]="X[ind]"
+                            class="min-w-10 w-auto max-w-[3rem] border-2">
+                        &nbsp;
+                        X{{ind+1}}
+                        <div [hidden]="zVars == ind+1" *ngIf="ind < zVars">
+                            &nbsp;
+                            <span [hidden]="zVars == ind+1" *ngIf="ind < zVars">+</span>
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="my-5 w-full">
+            <span class="mx-1">¿Cuántas restricciones tiene?</span>
+            <select class="form-select mr-4" [(ngModel)]="restrictNum" name="restrictNum">
+                <option selected value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+            </select>
+            <div class="w-full mt-5 flex flex-wrap">
+            </div>
+        </div>
+
+
+        <div class="w-full mt-5 flex flex-col flex-wrap">
+            <div *ngFor="let i of Rghost; index as indI" class="flex flex-wrap">
+                <div *ngFor="let j of Rghost[0]; index as indJ">
+                    <div *ngIf="indI < restrictNum" class="w-full">
+                        <input type="number" [(ngModel)]="R[indI][indJ]" [ngModelOptions]="{standalone: true}"
+                            class="min-w-10 w-auto max-w-[3rem] border-2">
+                        &nbsp;
+                        X{{indJ+1}}
+                        &nbsp;
+                        <span *ngIf="indJ < Rghost[0].length-1">+</span>
+                        &nbsp;
+                        <select [(ngModel)]="signs[indI]" [ngModelOptions]="{standalone: true}">
+                            <option value="<=" selected>&le;</option>
+                            <option value=">=">&ge;</option>
+                            <option value="=">&equals;</option>
+                        </select>
+                        <input type="number" [(ngModel)]="b[indI]" [ngModelOptions]="{standalone: true}"
+                            class="min-w-10 w-auto max-w-[3rem] border-2">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="w-full flex justify-end">
+            <button class="bg-indigo-600 px-3 py-2 text-white  rounded-lg" (click)="solve()">Solve</button>
+        </div>
+    </form>
+</div>
