@@ -20,14 +20,14 @@
                 <td>{{Xb_cache[k][indI]}}</td>
                 <td *ngFor="let j of R_cache[k][indI]; index as indJ">{{R_cache[k][indI][indJ] | number:
                     '1.0-3'}}</td>
-                <td>{{b_cache[k][indI]}}</td>
-                <td>{{ratio_cache[k][indI]}}</td>
+                <td>{{b_cache[k][indI] | number: '1.0-3'}}</td>
+                <td>{{ratio_cache[k][indI] | number: '1.0-3'}}</td>
             </tr>
             <tr>
                 <td class="no-border"></td>
                 <td>Zj</td>
                 <td *ngFor="let el of Zj_cache[k]">{{el | number: '1.0-2'}}</td>
-                <td>{{zValue_cache[k]}}</td>
+                <td>{{zValue_cache[k] | number: '1.0-2'}}</td>
             </tr>
             <tr>
                 <td class="no-border"></td>

@@ -1,4 +1,4 @@
 <app-formulario-simplex (xEmitter)="addX($event)" (rEmitter)="addR($event)" (signEmitter)="addSign($event)"
     (bEmitter)="addB($event)" (senseEmitter)="addSense($event)" (ready)="showTable()"></app-formulario-simplex>
-<app-tablero-simplex *ngIf="showBoard" [Cj]="Cj" [R]="R" [sign]="sign" [b_matrix]="b" [sense]="sense"></app-tablero-simplex>
-<!-- <app-tablero-simplex *ngIf="showBoard"></app-tablero-simplex> -->
+<!-- <app-tablero-simplex *ngIf="showBoard" [Cj]="Cj" [R]="R" [sign]="sign" [b_matrix]="b" [sense]="sense"></app-tablero-simplex> -->
+<app-tablero-simplex *ngIf="showBoard"></app-tablero-simplex>
