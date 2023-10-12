@@ -31,6 +31,7 @@ export class TableroSimplexComponent implements OnInit {
   public zValue!: number;
   public ratios!: number[];
 
+  public Cj_cache: Array<Array<number>> = []
   public Cb_cache: Array<Array<number>> = []
   public R_cache: Array<Array<Array<number>>> = []
   public b_cache: Array<Array<number>> = []
@@ -40,7 +41,26 @@ export class TableroSimplexComponent implements OnInit {
   public zValue_cache: Array<number> = []
   public ratio_cache: Array<Array<number>> = []
   public showBoard = false;
+  public outgoingCol: string[] = []
+  public outgoingRow: string[] = []
 
+
+  //  Cj = [3, 5]
+  // R = [[1, 0], [0, 2], [3, 2]]
+  // R_matrix: any
+  // R_matrix_original: any
+  // sign = ["<=", "<=", "<="]
+  // b_matrix: number[] = [4, 12, 18]
+  // b: any
+  // b_original: number[] = [4, 12, 18]
+  // Zj: number[] = [];
+  // Cb: number[] = [];
+  // Zj_Cj: number[] = []
+  // Xb: string[] = []
+  // columns: string[] = [];
+  // B: number[][] = []
+  // B_inv: any;
+  // sense: string = "Max"
 
   //No factible
 
@@ -100,6 +120,25 @@ export class TableroSimplexComponent implements OnInit {
   // B_inv: any;
   // sense: string = "Max"
 
+  //Degeneración
+
+  // Cj = [3, 9]
+  // R = [[1, 4], [1, 2]]
+  // R_matrix: any
+  // R_matrix_original: any
+  // sign = ["<=", "<="]
+  // b_matrix: number[] = [8, 4]
+  // b: any
+  // b_original: number[] = [8, 4]
+  // Zj: number[] = [];
+  // Cb: number[] = [];
+  // Zj_Cj: number[] = []
+  // Xb: string[] = []
+  // columns: string[] = [];
+  // B: number[][] = []
+  // B_inv: any;
+  // sense: string = "Max"
+
   //Metodo simplex
 
   // Cj = [2, 4]
@@ -121,22 +160,25 @@ export class TableroSimplexComponent implements OnInit {
 
   //Metodo de penalizacion
 
-  Cj = [4, 1]
-  R = [[3, 1], [4, 3], [1, 2]]
-  R_matrix: any
-  R_matrix_original: any
-  sign = ["=", ">=", "<="]
-  b_matrix: number[] = [3, 6, 4]
-  b: any
-  b_original: number[] = [3, 6, 4]
-  Zj: number[] = [];
-  Cb: number[] = [];
-  Zj_Cj: number[] = []
-  Xb: string[] = []
-  columns: string[] = [];
-  B: number[][] = []
-  B_inv: any;
-  sense: string = "Min"
+  // Cj = [4, 1]
+  // Cj_Two_Phases: number[] = []
+  // R = [[3, 1], [4, 3], [1, 2]]
+  // artifIndexes: number[] = []
+  // R_matrix: any
+  // R_matrix_original: any
+  // sign = ["=", ">=", "<="]
+  // b_matrix: number[] = [3, 6, 5]
+  // b: any
+  // b_original: number[] = [3, 6, 5]
+  // Zj: number[] = [];
+  // Cb: number[] = [];
+  // Zj_Cj: number[] = []
+  // Xb: string[] = []
+  // columns: string[] = [];
+  // B: number[][] = []
+  // B_inv: any;
+  // sense: string = "Min"
+  // method: string = "TwoPhases"
 
   //  Taller 1
 
@@ -163,10 +205,10 @@ export class TableroSimplexComponent implements OnInit {
   // R = [[1, -3, 5], [5, 3, -4]]
   // R_matrix: any
   // R_matrix_original: any
-  // sign = ["=", ">=", "="]
-  // b_matrix: number[] = [4, 6, 24]
+  // sign = ["=", ">="]
+  // b_matrix: number[] = [4, 6]
   // b: any
-  // b_original: number[] = [4, 6, 24]
+  // b_original: number[] = [4, 6]
   // Zj: number[] = [];
   // Cb: number[] = [];
   // Zj_Cj: number[] = []
@@ -176,20 +218,87 @@ export class TableroSimplexComponent implements OnInit {
   // B_inv: any;
   // sense: string = "Max"
 
+  //  Taller 1
+
+  // Cj = [5, -4, 3]
+  // R = [[2, 1, -6], [6, 5, 10]]
+  // R_matrix: any
+  // R_matrix_original: any
+  // sign = ["=", "<="]
+  // b_matrix: number[] = [20, 76]
+  // b: any
+  // b_original: number[] = [20, 76]
+  // Zj: number[] = [];
+  // Cb: number[] = [];
+  // Zj_Cj: number[] = []
+  // Xb: string[] = []
+  // columns: string[] = [];
+  // B: number[][] = []
+  // B_inv: any;
+  // sense: string = "Max"
+
+  // Taller 1
+
+  // Cj = [2, 1, 3]
+  // R = [[5, -2, 0], [3, 2, 4], [2, 0, 5]]
+  // R_matrix: any
+  // R_matrix_original: any
+  // sign = [">=", ">=", "<="]
+  // b_matrix: number[] = [-5, 7, 3]
+  // b: any
+  // b_original: number[] = [-5, 7, 3]
+  // Zj: number[] = [];
+  // Cb: number[] = [];
+  // Zj_Cj: number[] = []
+  // Xb: string[] = []
+  // columns: string[] = [];
+  // B: number[][] = []
+  // B_inv: any;
+  // sense: string = "Min"
+
+  // Taller 2
+
+  Cj = [2, 3, -5]
+  Cj_Two_Phases: number[] = []
+  R = [[1, 1, 1], [2, -5, 1]]
+  artifIndexes: number[] = []
+  R_matrix: any
+  R_matrix_original: any
+  sign = ["=", ">="]
+  b_matrix: number[] = [7, 10]
+  b: any
+  b_original: number[] = [7, 10]
+  Zj: number[] = [];
+  Cb: number[] = [];
+  Zj_Cj: number[] = []
+  Xb: string[] = []
+  columns: string[] = [];
+  B: number[][] = []
+  B_inv: any;
+  sense: string = "Min"
+  sense_cache = ""
+  sense_Two_Phases: string = "Min"
+  method: string = "M"
+  // method: string = "TwoPhases"
+
   p = 1
   counter = 0
   valid = true;
   validBoard = true;
   s_index = 1;
   a_index = 1;
-  prueba = 0
+  phase = 1;
+  // prueba = 0
 
   constructor(private toastr: ToastrService) { }
 
   ngOnInit(): void {
 
     this.validateShapes()
+    this.initialize();
+  }
 
+  initialize() {
     if (this.validBoard) {
       this.b = math.matrix(this.b_matrix)
       this.b_original = this.b_matrix
@@ -205,19 +314,19 @@ export class TableroSimplexComponent implements OnInit {
       if (this.p != 0)
         this.print();
 
+      if (this.method == "TwoPhases") {
+        this.sense_cache = this.sense
+        this.sense = this.sense_Two_Phases
+      }
+
       let index = this.optimalityTest().index
       this.calculateRatio(math.transpose(this.R_matrix).toArray()[index], this.b)
 
       if (!this.optimalityTest().optimal)
         this.updateBoard(this.optimalityTest().index)
 
-
-      // while (this.prueba < 3) {
-      //   this.updateBoard(this.optimalityTest().index)
-      //   this.prueba = this.prueba + 1
-      // }
+      this.showBoard = true;
     }
-
   }
 
   getM(): number {
@@ -292,10 +401,7 @@ export class TableroSimplexComponent implements OnInit {
         counter += 1
       if (el == ">=") {
         let array = new Array(this.R.length)
-        
-        console.log(this.Cj.length);
-        console.log(counter);
-        
+
         array.fill(0).forEach((e, i) => {
           if (i == ind)
             array[i] = -1
@@ -308,13 +414,29 @@ export class TableroSimplexComponent implements OnInit {
           b[i] = b[i + 1]
           b[i + 1] = tmp
         }
-        console.log(b);
-        
+
         this.R_matrix = math.matrix(math.transpose(b))
         counter += 2
       }
     })
+
     this.setNormalizedVariables();
+
+    if (this.method == "TwoPhases" && this.phase == 1) {
+
+      this.columns.forEach((el, ind) => {
+        if (el.startsWith("A")) {
+          this.artifIndexes.push(ind)
+        }
+      })
+      this.Cj.forEach(el => {
+        this.Cj_Two_Phases.push(el)
+      })
+      this.Cj = new Array(this.Cj.length).fill(0);
+      this.artifIndexes.forEach(el => {
+        this.Cj[el] = 1;
+      })
+    }
     this.R_matrix_original = math.clone(this.R_matrix);
   }
 
@@ -334,8 +456,13 @@ export class TableroSimplexComponent implements OnInit {
           this.columns.push(`S${this.s_index}`)
           this.columns.push(`A${this.a_index}`)
           this.Cj.push(0)
-          this.Cj.push(M)
-          this.Cb.push(M)
+          if (this.method != "TwoPhases") {
+            this.Cj.push(M)
+            this.Cb.push(M)
+          } else {
+            this.Cj.push(1);
+            this.Cb.push(1);
+          }
           this.Xb.push(`A${this.a_index}`)
           this.s_index += 1;
           this.a_index += 1;
@@ -343,9 +470,13 @@ export class TableroSimplexComponent implements OnInit {
         case "=":
           this.columns.push(`A${this.a_index}`)
           this.Xb.push(`A${this.a_index}`)
-          // TODO: M grande
-          this.Cj.push(M)
-          this.Cb.push(M)
+          if (this.method != "TwoPhases") {
+            this.Cj.push(M)
+            this.Cb.push(M)
+          } else {
+            this.Cj.push(1);
+            this.Cb.push(1);
+          }
           this.a_index += 1;
           break;
       }
@@ -370,12 +501,18 @@ export class TableroSimplexComponent implements OnInit {
   }
 
   optimalityTest() {
-    //Minimization
     if (this.sense == "Min") {
-      return { "optimal": this.Zj_Cj.every(el => el <= 0), "index": this.Zj_Cj.findIndex(e => e == math.max(this.Zj_Cj)) }
+      if (this.phase == 2) {
+        return { "optimal": this.checkAllGreaterThanZeroNotIn(this.Zj_Cj, this.artifIndexes), "index": this.findMaxNotIn(this.Zj_Cj, this.artifIndexes) }
+      } else {
+        return { "optimal": this.Zj_Cj.every(el => el <= 0), "index": this.Zj_Cj.findIndex(e => e == math.max(this.Zj_Cj)) }
+      }
     }
-    //Maximization
-    return { "optimal": this.Zj_Cj.every(el => el >= 0), "index": this.Zj_Cj.findIndex(e => e == math.min(this.Zj_Cj)) }
+    if (this.phase == 2) {
+      return { "optimal": this.checkAllGreaterThanZeroNotIn(this.Zj_Cj, this.artifIndexes), "index": this.findMinNotIn(this.Zj_Cj, this.artifIndexes) }
+    } else {
+      return { "optimal": this.Zj_Cj.every(el => el >= 0), "index": this.Zj_Cj.findIndex(e => e == math.min(this.Zj_Cj)) }
+    }
   }
 
   calculateRatio(pivot: number[], b: number[]) {
@@ -390,17 +527,59 @@ export class TableroSimplexComponent implements OnInit {
     return ratio
   }
 
-  outgoingRow(row: number[]) {
+  getOutgoingRow(row: number[]) {
     let outRow = row
     outRow = math.map(outRow, (el) => this.magicRound(el))
     return this.findIndexMinGreaterThanZero(outRow)
+  }
+
+  checkAllLessThanZeroNotIn(row: number[], excludeList: number[]) {
+    let comparator = true
+    for (let i = 0; i < row.length; i++) {
+      if (!excludeList.includes(i))
+        comparator = comparator && row[i] <= 0
+    }
+    return comparator
+  }
+
+  checkAllGreaterThanZeroNotIn(row: number[], excludeList: number[]) {
+    let comparator = true
+    for (let i = 0; i < row.length; i++) {
+      if (!excludeList.includes(i))
+        comparator = comparator && row[i] >= 0
+    }
+    return comparator
+  }
+
+  findMaxNotIn(row: number[], excludeList: number[]) {
+    let comparator = -999999999
+    let index = -1
+    row.forEach((e, ind) => {
+      if (e > comparator && !excludeList.includes(ind)) {
+        comparator = e
+        index = ind
+      }
+    })
+    return index
+  }
+
+  findMinNotIn(row: number[], excludeList: number[]) {
+    let comparator = 999999999
+    let index = -1
+    row.forEach((e, ind) => {
+      if (e < comparator && !excludeList.includes(ind)) {
+        comparator = e
+        index = ind
+      }
+    })
+    return index
   }
 
   findIndexMinGreaterThanZero(row: number[]) {
     let comparator: number = 999999999
     let index = -1
     for (let i = 0; i < row.length; i++) {
-      if (row[i] < comparator && row[i] >= 0) {
+      if (row[i] < comparator && row[i] > 0) {
         comparator = row[i];
         index = i
       }
@@ -429,7 +608,7 @@ export class TableroSimplexComponent implements OnInit {
         ratioMatrix = this.calculateRatio(math.transpose(this.R_matrix.toArray())[index], this.b.toArray())
       }
 
-      let row = this.outgoingRow(ratioMatrix)
+      let row = this.getOutgoingRow(ratioMatrix)
 
 
       this.Xb[row] = this.columns[col]
@@ -452,9 +631,28 @@ export class TableroSimplexComponent implements OnInit {
         this.print()
       }
 
-      if (!this.optimalityTest().optimal)
+      if (this.optimalityTest().optimal && this.method == "TwoPhases" && this.phase == 1) {
+        this.TwoPhasesMethod();
+      }
+      else if (!this.optimalityTest().optimal)
         this.updateBoard(this.optimalityTest().index)
     }
+  }
+
+  TwoPhasesMethod() {
+    console.log("Fase 2");
+    
+    this.phase = 2;
+    this.sense = this.sense_cache
+    this.artifIndexes.forEach((el) => {
+      this.Cj_Two_Phases[el] = 0
+    })
+    this.Cj = this.Cj_Two_Phases
+    this.getCb();
+    this.solveZ();
+    this.sense = this.sense_Two_Phases
+    // this.print()
+    this.updateBoard(this.optimalityTest().index);
   }
 
   checkXb() {
@@ -464,13 +662,24 @@ export class TableroSimplexComponent implements OnInit {
     })
   }
 
-  print() {
+  getCb() {
+    let indexes: number[] = []
+    this.Xb.forEach((el) => {
+      indexes.push(this.columns.findIndex(col => col == el))
+    })
+    this.Cb = []
+    indexes.forEach((el) => {
+      this.Cb.push(this.Cj[el]);
+    })
+  }
 
+  print() {
 
     console.log("\n\n");
     console.log(this.sense)
     console.log("Cj");
     console.log(this.Cj)
+    this.Cj_cache.push(this.Cj)
     console.log("Cb");
     console.log(this.Cb)
     this.Cb_cache.push(math.matrix(math.clone(this.Cb)).toArray() as number[])
@@ -496,7 +705,7 @@ export class TableroSimplexComponent implements OnInit {
     this.Zj_cache.push(this.Zj)
     console.log("Zj_Cj");
     console.log(this.Zj_Cj)
-    this.validateAlternativeOptimals();
+    // this.validateAlternativeOptimals();
     this.Zj_Cj_cache.push(this.Zj_Cj)
     console.log("zValue")
     console.log(this.zValue)
@@ -507,17 +716,21 @@ export class TableroSimplexComponent implements OnInit {
     if (this.optimalityTest().optimal || !this.valid) {
       this.showBoard = true;
     }
+
     if (!this.optimalityTest().optimal) {
       let outgoingCol = this.optimalityTest().index
-      console.log("Columna de salida")
+      console.log("Columna de salida");
       console.log(outgoingCol);
+      this.outgoingCol.push(this.columns[outgoingCol]);
       console.log("Fila de salida");
       let rowMatrix = this.calculateRatio(math.transpose(this.R_matrix.toArray())[outgoingCol], this.b.toArray())
-      console.log(this.outgoingRow(rowMatrix));
+      let outgoingRow = this.getOutgoingRow(rowMatrix);
+      console.log(outgoingRow);
+      this.outgoingRow.push(this.Xb[outgoingRow]);
       console.log("Ratio")
       this.ratios = math.map(rowMatrix, (el) => this.magicRound(el))
       this.validateNotBoundedSolution();
-      this.validateDegeneration();
+      // this.validateDegeneration();
       console.log(this.ratios)
       this.ratio_cache.push(this.ratios)
     } else {
@@ -541,23 +754,23 @@ export class TableroSimplexComponent implements OnInit {
     }
   }
 
-  validateAlternativeOptimals() {
-    let columns: string[] = []
-    this.columns.forEach(col => columns.push(col))
-    let Xnb = columns.filter((el) => !this.Xb.includes(el))
-    let indexesXnb: number[] = [];
-    Xnb.forEach(xnb => {
-      indexesXnb.push(columns.findIndex(el => el == xnb))
-    })
+  // validateAlternativeOptimals() {
+  //   let columns: string[] = []
+  //   this.columns.forEach(col => columns.push(col))
+  //   let Xnb = columns.filter((el) => !this.Xb.includes(el))
+  //   let indexesXnb: number[] = [];
+  //   Xnb.forEach(xnb => {
+  //     indexesXnb.push(columns.findIndex(el => el == xnb))
+  //   })
 
-    for (const element of indexesXnb) {
-      if (this.Zj_Cj[element] == 0) {
-        this.toastr.error("Óptimos alternativos encontrados")
-        this.valid = false;
-        break;
-      }
-    }
-  }
+  //   for (const element of indexesXnb) {
+  //     if (this.Zj_Cj[element] == 0) {
+  //       this.toastr.error("Óptimos alternativos encontrados")
+  //       this.valid = false;
+  //       break;
+  //     }
+  //   }
+  // }
 
   validateNotBoundedSolution() {
     if (this.ratios.every(el => el <= 0)) {
@@ -570,9 +783,9 @@ export class TableroSimplexComponent implements OnInit {
     let restrictionRows = this.R.length
     let cjCols = this.Cj.length
 
-    if (cjCols > restrictionRows) {
-      this.toastr.error("Restricciones insuficientes")
-      this.validBoard = false;
-    }
+    // if (cjCols > restrictionRows) {
+    //   this.toastr.error("Restricciones insuficientes")
+    //   this.validBoard = false;
+    // }
   }
 }
