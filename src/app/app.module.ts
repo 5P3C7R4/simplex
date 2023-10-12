@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { TableroSimplexComponent } from './components/tablero-simplex/tablero-simplex.component';
 import { FormularioSimplexComponent } from './components/formulario-simplex/formulario-simplex.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ConcatVarsPipe } from 'src/app/pipes/concat-vars.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     TableroSimplexComponent,
-    FormularioSimplexComponent
+    FormularioSimplexComponent,
+    ConcatVarsPipe
   ],
   imports: [
     BrowserModule,

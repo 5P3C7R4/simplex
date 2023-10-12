@@ -100,6 +100,12 @@ export class TableroSimplexComponent implements OnInit {
   // B: number[][] = []
   // B_inv: any;
   // sense: string = "Max"
+  // Cj_Two_Phases: number[] = []
+  // artifIndexes: number[] = []
+  // sense_cache = ""
+  // sense_Two_Phases: string = "Min"
+  // method: string = "M"
+  // method: string = "TwoPhases"
 
   //No acotada
 
@@ -119,6 +125,12 @@ export class TableroSimplexComponent implements OnInit {
   // B: number[][] = []
   // B_inv: any;
   // sense: string = "Max"
+  // Cj_Two_Phases: number[] = []
+  // artifIndexes: number[] = []
+  // sense_cache = ""
+  // sense_Two_Phases: string = "Min"
+  // method: string = "M"
+  // method: string = "TwoPhases"
 
   //Degeneración
 
@@ -180,7 +192,7 @@ export class TableroSimplexComponent implements OnInit {
   // sense: string = "Min"
   // method: string = "TwoPhases"
 
-  //  Taller 1
+  //  Taller 1.1
 
   // Cj = [2, 1, 3]
   // R = [[1, 1, 2], [2, 3, 4], [4, 6, 8]]
@@ -198,8 +210,13 @@ export class TableroSimplexComponent implements OnInit {
   // B: number[][] = []
   // B_inv: any;
   // sense: string = "Max"
+  // Cj_Two_Phases: number[] = []
+  // artifIndexes: number[] = []
+  // sense_cache = ""
+  // sense_Two_Phases: string = "Min"
+  // method: string = "M"
 
-  //  Taller 1
+  //  Taller 1.2
 
   // Cj = [-8, 3, -6]
   // R = [[1, -3, 5], [5, 3, -4]]
@@ -217,17 +234,22 @@ export class TableroSimplexComponent implements OnInit {
   // B: number[][] = []
   // B_inv: any;
   // sense: string = "Max"
+  // Cj_Two_Phases: number[] = []
+  // artifIndexes: number[] = []
+  // sense_cache = ""
+  // sense_Two_Phases: string = "Min"
+  // method: string = "M"
 
-  //  Taller 1
+  //  Taller 1.3
 
-  // Cj = [5, -4, 3]
-  // R = [[2, 1, -6], [6, 5, 10]]
+  // Cj = [4, 3, -3]
+  // R = [[1, 1, -1], [1, 2, -2], [3, 2, -2]]
   // R_matrix: any
   // R_matrix_original: any
-  // sign = ["=", "<="]
-  // b_matrix: number[] = [20, 76]
+  // sign = ["<=", ">=", ">="]
+  // b_matrix: number[] = [50, 80, 140]
   // b: any
-  // b_original: number[] = [20, 76]
+  // b_original: number[] = [50, 80, 140]
   // Zj: number[] = [];
   // Cb: number[] = [];
   // Zj_Cj: number[] = []
@@ -236,8 +258,39 @@ export class TableroSimplexComponent implements OnInit {
   // B: number[][] = []
   // B_inv: any;
   // sense: string = "Max"
+  // Cj_Two_Phases: number[] = []
+  // artifIndexes: number[] = []
+  // sense_cache = ""
+  // sense_Two_Phases: string = "Min"
+  // method: string = "M"
+  // method: string = "TwoPhases"
 
-  // Taller 1
+  //  Taller 1.4
+
+  // Cj = [5, -4, 3]
+  // R = [[2, 1, -6], [6, 5, 10], [8, -3, 6]]
+  // R_matrix: any
+  // R_matrix_original: any
+  // sign = ["=", "<=", "<="]
+  // b_matrix: number[] = [20, 76, 50]
+  // b: any
+  // b_original: number[] = [20, 76, 50]
+  // Zj: number[] = [];
+  // Cb: number[] = [];
+  // Zj_Cj: number[] = []
+  // Xb: string[] = []
+  // columns: string[] = [];
+  // B: number[][] = []
+  // B_inv: any;
+  // sense: string = "Max"
+  // Cj_Two_Phases: number[] = []
+  // artifIndexes: number[] = []
+  // sense_cache = ""
+  // sense_Two_Phases: string = "Min"
+  // method: string = "M"
+  // method: string = "TwoPhases"
+
+  // Taller 1.5
 
   // Cj = [2, 1, 3]
   // R = [[5, -2, 0], [3, 2, 4], [2, 0, 5]]
@@ -255,10 +308,91 @@ export class TableroSimplexComponent implements OnInit {
   // B: number[][] = []
   // B_inv: any;
   // sense: string = "Min"
+  // Cj_Two_Phases: number[] = []
+  // artifIndexes: number[] = []
+  // sense_cache = ""
+  // sense_Two_Phases: string = "Min"
+  // method: string = "M"
+  // method: string = "TwoPhases"
 
-  // Taller 2
+  // Taller 2.a
 
-  Cj = [2, 3, -5]
+  // Cj = [2, 3, -5]
+  // Cj_Two_Phases: number[] = []
+  // R = [[1, 1, 1], [2, -5, 1]]
+  // artifIndexes: number[] = []
+  // R_matrix: any
+  // R_matrix_original: any
+  // sign = ["=", ">="]
+  // b_matrix: number[] = [7, 10]
+  // b: any
+  // b_original: number[] = [7, 10]
+  // Zj: number[] = [];
+  // Cb: number[] = [];
+  // Zj_Cj: number[] = []
+  // Xb: string[] = []
+  // columns: string[] = [];
+  // B: number[][] = []
+  // B_inv: any;
+  // sense: string = "Max"
+  // sense_cache = ""
+  // sense_Two_Phases: string = "Min"
+  // method: string = "M"
+  // method: string = "TwoPhases"
+
+  // Taller 2.b
+
+  // Cj = [2, 3, -5]
+  // Cj_Two_Phases: number[] = []
+  // R = [[1, 1, 1], [2, -5, 1]]
+  // artifIndexes: number[] = []
+  // R_matrix: any
+  // R_matrix_original: any
+  // sign = ["=", ">="]
+  // b_matrix: number[] = [7, 10]
+  // b: any
+  // b_original: number[] = [7, 10]
+  // Zj: number[] = [];
+  // Cb: number[] = [];
+  // Zj_Cj: number[] = []
+  // Xb: string[] = []
+  // columns: string[] = [];
+  // B: number[][] = []
+  // B_inv: any;
+  // sense: string = "Min"
+  // sense_cache = ""
+  // sense_Two_Phases: string = "Min"
+  // method: string = "M"
+  // method: string = "TwoPhases"
+
+  // Taller 2.c
+
+  // Cj = [1, 2, 1]
+  // Cj_Two_Phases: number[] = []
+  // R = [[1, 1, 1], [2, -5, 1]]
+  // artifIndexes: number[] = []
+  // R_matrix: any
+  // R_matrix_original: any
+  // sign = ["=", ">="]
+  // b_matrix: number[] = [7, 10]
+  // b: any
+  // b_original: number[] = [7, 10]
+  // Zj: number[] = [];
+  // Cb: number[] = [];
+  // Zj_Cj: number[] = []
+  // Xb: string[] = []
+  // columns: string[] = [];
+  // B: number[][] = []
+  // B_inv: any;
+  // sense: string = "Max"
+  // sense_cache = ""
+  // sense_Two_Phases: string = "Min"
+  // method: string = "M"
+  // method: string = "TwoPhases"
+
+  // Taller 2.d
+
+  Cj = [4, -8, 3]
   Cj_Two_Phases: number[] = []
   R = [[1, 1, 1], [2, -5, 1]]
   artifIndexes: number[] = []
@@ -288,7 +422,9 @@ export class TableroSimplexComponent implements OnInit {
   s_index = 1;
   a_index = 1;
   phase = 1;
-  // prueba = 0
+  prueba = 0
+  standarVar: string[][] = []
+  stand: string[] = []
 
   constructor(private toastr: ToastrService) { }
 
@@ -308,6 +444,7 @@ export class TableroSimplexComponent implements OnInit {
       })
 
       this.normalize();
+      this.getStandarVariables()
       this.boardSize = new Array(this.Xb.length)
       this.solveZ();
 
@@ -315,8 +452,8 @@ export class TableroSimplexComponent implements OnInit {
         this.print();
 
       if (this.method == "TwoPhases") {
-        this.sense_cache = this.sense
-        this.sense = this.sense_Two_Phases
+        this.sense_cache = this.sense.toString()
+        this.sense = this.sense_Two_Phases.toString()
       }
 
       let index = this.optimalityTest().index
@@ -327,6 +464,35 @@ export class TableroSimplexComponent implements OnInit {
 
       this.showBoard = true;
     }
+  }
+
+  getStandarVariables() {
+    let array: string[] = []
+    this.Cj.forEach((el: any, ind: number) => {
+      if (el == 1)
+        array.push(this.columns[ind])
+      else array.push(el.toString() + this.columns[ind].toString())
+    })
+    this.standarVar.push(array)
+    this.R_matrix.toArray().forEach((row: any) => {
+      let array: any[] = []
+      row.forEach((el: any, ind: number) => {
+        if (el == 1)
+          array.push(this.columns[ind])
+        else array.push(el.toString() + this.columns[ind].toString())
+      })
+      this.standarVar.push(array)
+    })
+
+    this.sign.forEach((sign, ind) => {
+      this.standarVar[ind + 1].push(sign)
+    })
+    this.b_matrix.forEach((b, ind) => {
+      this.standarVar[ind + 1].push(b.toString())
+    })
+    console.log(this.standarVar)
+    this.stand = this.standarVar.map(row => row.join("+"))
+
   }
 
   getM(): number {
@@ -503,7 +669,7 @@ export class TableroSimplexComponent implements OnInit {
   optimalityTest() {
     if (this.sense == "Min") {
       if (this.phase == 2) {
-        return { "optimal": this.checkAllGreaterThanZeroNotIn(this.Zj_Cj, this.artifIndexes), "index": this.findMaxNotIn(this.Zj_Cj, this.artifIndexes) }
+        return { "optimal": this.checkAllLessThanZeroNotIn(this.Zj_Cj, this.artifIndexes), "index": this.findMaxNotIn(this.Zj_Cj, this.artifIndexes) }
       } else {
         return { "optimal": this.Zj_Cj.every(el => el <= 0), "index": this.Zj_Cj.findIndex(e => e == math.max(this.Zj_Cj)) }
       }
@@ -601,6 +767,7 @@ export class TableroSimplexComponent implements OnInit {
 
   updateBoard(col: number) {
 
+    this.prueba += 1
     if (this.valid) {
       let ratioMatrix: number[] = []
       if (!this.optimalityTest().optimal) {
@@ -641,17 +808,17 @@ export class TableroSimplexComponent implements OnInit {
 
   TwoPhasesMethod() {
     console.log("Fase 2");
-    
+    this.outgoingCol.push("")
+    this.outgoingRow.push("")
     this.phase = 2;
-    this.sense = this.sense_cache
+    this.sense = this.sense_cache.toString()
     this.artifIndexes.forEach((el) => {
       this.Cj_Two_Phases[el] = 0
     })
     this.Cj = this.Cj_Two_Phases
     this.getCb();
     this.solveZ();
-    this.sense = this.sense_Two_Phases
-    // this.print()
+    this.print()
     this.updateBoard(this.optimalityTest().index);
   }
 
@@ -705,7 +872,7 @@ export class TableroSimplexComponent implements OnInit {
     this.Zj_cache.push(this.Zj)
     console.log("Zj_Cj");
     console.log(this.Zj_Cj)
-    // this.validateAlternativeOptimals();
+    this.validateAlternativeOptimals();
     this.Zj_Cj_cache.push(this.Zj_Cj)
     console.log("zValue")
     console.log(this.zValue)
@@ -754,23 +921,23 @@ export class TableroSimplexComponent implements OnInit {
     }
   }
 
-  // validateAlternativeOptimals() {
-  //   let columns: string[] = []
-  //   this.columns.forEach(col => columns.push(col))
-  //   let Xnb = columns.filter((el) => !this.Xb.includes(el))
-  //   let indexesXnb: number[] = [];
-  //   Xnb.forEach(xnb => {
-  //     indexesXnb.push(columns.findIndex(el => el == xnb))
-  //   })
+  validateAlternativeOptimals() {
+    let columns: string[] = []
+    this.columns.forEach(col => columns.push(col))
+    let Xnb = columns.filter((el) => !this.Xb.includes(el))
+    let indexesXnb: number[] = [];
+    Xnb.forEach(xnb => {
+      indexesXnb.push(columns.findIndex(el => el == xnb))
+    })
 
-  //   for (const element of indexesXnb) {
-  //     if (this.Zj_Cj[element] == 0) {
-  //       this.toastr.error("Óptimos alternativos encontrados")
-  //       this.valid = false;
-  //       break;
-  //     }
-  //   }
-  // }
+    for (const element of indexesXnb) {
+      if (this.Zj_Cj[element] == 0) {
+        this.toastr.error("Óptimos alternativos encontrados")
+        this.valid = false;
+        break;
+      }
+    }
+  }
 
   validateNotBoundedSolution() {
     if (this.ratios.every(el => el <= 0)) {
@@ -782,10 +949,5 @@ export class TableroSimplexComponent implements OnInit {
   validateShapes() {
     let restrictionRows = this.R.length
     let cjCols = this.Cj.length
-
-    // if (cjCols > restrictionRows) {
-    //   this.toastr.error("Restricciones insuficientes")
-    //   this.validBoard = false;
-    // }
   }
 }

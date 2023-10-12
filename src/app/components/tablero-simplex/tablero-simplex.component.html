@@ -1,7 +1,13 @@
 <div *ngIf="showBoard" class="w-full text-center mx-10 mb-10">
 
+    <div class="mb-6 mt-1">
+        <div *ngFor="let standVar of standarVar; index as ind" class="text-left">
+            <pre *ngIf="ind == 0">{{sense}} Z = {{standVar | concatVars}}</pre>
+            <pre *ngIf="ind != 0">{{standVar | concatVars}}</pre>
+        </div>
+    </div>
     <div *ngFor="let el of Cb_cache; index as k">
-
+        <p class="text-left text-xl p-4 ml-4 font-bold" *ngIf="method == 'TwoPhases' && k == 0">Inicio fase 1</p>
         <table aria-describedby="simplex table" class="table-auto text-center">
             <thead>
                 <tr class="font-normal">
@@ -40,7 +46,8 @@
             </tbody>
         </table>
 
-        <p class="text-left text-xl p-4 ml-4" *ngIf="k < outgoingRow.length">Sale la fila {{outgoingRow[k]}} entra
-            la columna {{outgoingCol[k]}}</p>
+        <p class="text-left text-xl p-4 ml-4" *ngIf="outgoingRow[k] != '' && k < outgoingRow.length">Sale la fila
+            {{outgoingRow[k]}} entra la columna {{outgoingCol[k]}}</p>
+        <p class="text-left text-xl p-4 ml-4 font-bold" *ngIf="outgoingRow[k] == ''">Inicio fase 2</p>
     </div>
 </div>
